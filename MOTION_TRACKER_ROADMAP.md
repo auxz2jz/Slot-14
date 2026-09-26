@@ -17,6 +17,7 @@
 - [x] Guided test
 - [x] Diagnostic event logging
 - [x] Diagnostic ZIP export
+- [x] GitHub Actions compile/build success
 - [ ] User physical verification
 
 ## v0.2.x — Performance and security-camera cleanup
