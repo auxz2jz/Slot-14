@@ -46,7 +46,12 @@ GitHub Actions builds a debug APK on every push to `main`.
 
 ## Status
 
-**v0.1.0 — CANDIDATE**
+**v0.1.0 — CANDIDATE, CI build successful**
 
 No Android version has been physically verified by the user yet.
 See `PROJECT_MEMORY.md` before making future changes.
+
+
+## Build verification
+
+GitHub Actions successfully compiled the Android debug APK from commit `74974383ce67e412fd86048a309ebe377ef05b92` in run `36275458803`. The app is not VERIFIED until it is physically tested on Android.
