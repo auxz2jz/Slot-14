@@ -7,7 +7,7 @@ import java.util.UUID
 internal object GuidedTest {
     fun show(a:MainActivity){
         a.logger.log("USER_ACTION","TEST_THIS_VERSION_PRESSED")
-        val prefs=a.getSharedPreferences(MainActivity.PREFS,MainActivity.MODE_PRIVATE)
+        val prefs=a.getSharedPreferences(MainActivity.PREFS,android.content.Context.MODE_PRIVATE)
         var id=prefs.getString("testSessionId",null)
         if(id==null){id=UUID.randomUUID().toString();prefs.edit().putString("testSessionId",id).putString("testState","IN_PROGRESS").apply();a.logger.log("TEST","GUIDED_TEST_STARTED",details=mapOf("testSessionId" to id,"version" to MainActivity.VERSION))}
         val ready=a.processedFrames>=30 && a.maxTrackCount>0 && a.maxChangedPixels>0 && a.lastError==null
