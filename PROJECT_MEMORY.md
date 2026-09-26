@@ -8,7 +8,7 @@ Also follow the canonical master instruction library at `auxz2jz/master-instruct
 ## Current status
 
 - Project created: 2026-09-26
-- Current Android version: **v0.1.0 — CANDIDATE**
+- Current Android version: **v0.1.0 — CANDIDATE (CI build successful)**
 - Last user-verified Android version: **NONE YET**
 - Latest Python reference: **v0.2 — CANDIDATE / assistant-tested on supplied goat footage**
 - Last user-verified Python version: **NONE explicitly recorded**
@@ -88,15 +88,29 @@ Automatic prerequisites require:
 
 Final tracking correctness is visual and therefore requires the user to choose **Tracking Looks Correct** or **Problem**.
 
+## Build verification
+
+- Successful GitHub Actions run: `36275458803`
+- Successful source commit: `74974383ce67e412fd86048a309ebe377ef05b92`
+- APK artifact ID: `10916866932`
+- Artifact ZIP SHA-256: `604f7af14a290955ffa7092a56ff360642480c9e0cd7d91129b07bdf55dccaf2`
+- Extracted APK SHA-256: `fb003c37b35f05843f9c659cb473275bb49e5af668f5ae3ad393a9d52fff70f7`
+- Build status is CANDIDATE only; no physical Android test has been recorded.
+
 ## Failed/abandoned approaches
 
-None for Android yet.
+CI setup failures before source compilation:
+
+1. `android-actions/setup-android@v3` requested obsolete SDK package `tools` and failed before compilation.
+2. Direct `sdkmanager` call failed because the executable was not on PATH.
+3. The full sdkmanager path was correct, but a YAML `run:` scalar beginning with a quoted command made the workflow invalid before job creation.
+4. First real Kotlin compile exposed unresolved contour helper calls in the OpenCV binding. Region extraction was changed from contour area/bounding boxes to `connectedComponentsWithStats`, which is also a direct fit for grouping changed pixels. The next compile succeeded.
 
 For the Python prototype, full-resolution 2560×1920 processing was unnecessarily slow for early tuning, so algorithm validation switched to a reduced working resolution. This is now an intentional design choice: analyze at reduced resolution first, then later map overlays back to full-resolution output.
 
 ## Exact next action
 
-1. Build v0.1.0 in GitHub Actions.
-2. If compilation succeeds, provide the debug APK to the user.
-3. User runs **Test This Version** on the same goat clip.
-4. Use exported diagnostics plus the user's visual result for the next targeted change.
+1. User installs the successful v0.1.0 debug APK.
+2. User runs **Test This Version** on the same goat clip.
+3. If visual tracking is wrong or the app errors, user exports diagnostics.
+4. Use diagnostics plus the user's visual result for the next targeted change.
