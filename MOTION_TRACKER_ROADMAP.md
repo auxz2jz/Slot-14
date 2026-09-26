@@ -20,6 +20,28 @@
 - [x] GitHub Actions compile/build success
 - [ ] User physical verification
 
+## v0.1.x — Master-standard safeguards before major expansion
+
+Documentation/coordination:
+
+- [x] Adopt current Master Instruction Library without moving working source.
+- [x] Record pre-adoption checkpoint and successful Android candidate identity.
+- [x] Map existing repository paths to Android/shared ownership.
+- [x] Add shared cross-platform coordination and stable Feature IDs.
+- [x] Record Windows/PC implementation as NOT STARTED rather than inventing status.
+
+Incremental Android safeguards (preserve tracker behavior while adding one logical change at a time):
+
+- [ ] Add operation/run IDs and correlation IDs to diagnostic events.
+- [ ] Preserve uncaught crashes with stack trace and recent related events.
+- [ ] Add bounded recent-event buffer plus meaningful progress/stall watchdog.
+- [ ] Add centralized diagnostic redaction and stronger precondition/result validation.
+- [ ] Persist guided-test current/completed steps with per-step result sources.
+- [ ] Add tester failure notes and TXT/JSON guided-test report export.
+- [ ] Link failed tests to relevant diagnostic event IDs/run IDs.
+
+Do not bundle all safeguard items into a broad rewrite. Build/test after each logical change.
+
 ## v0.2.x — Performance and security-camera cleanup
 
 - [ ] Replace 5 FPS `MediaMetadataRetriever` loop with faster sequential MediaCodec/ImageReader decoder.
