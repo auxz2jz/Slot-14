@@ -2,8 +2,16 @@
 
 **Canonical repository:** `auxz2jz/Slot-14`
 
-Read this file before changing the project, then read `MOTION_TRACKER_ROADMAP.md`, `TESTING.md`, and `DIAGNOSTICS.md`.
-Also follow the canonical master instruction library at `auxz2jz/master-instruction-library`.
+This existing project has adopted the current Master Instruction Library without restructuring working source.
+
+Required startup order before substantial work:
+
+1. Read `auxz2jz/master-instruction-library/INSTRUCTION_INDEX.md` and all applicable mandatory standards.
+2. Read `MASTER_RULE_ADOPTION.md`.
+3. Read `CROSS_PLATFORM_COORDINATION.md`.
+4. Read this `PROJECT_MEMORY.md`.
+5. Read `MOTION_TRACKER_ROADMAP.md`, `TESTING.md`, and `DIAGNOSTICS.md`.
+6. Identify the platform being worked on, its last user-verified baseline, and its latest legitimate candidate before changing source.
 
 ## Current status
 
@@ -12,6 +20,28 @@ Also follow the canonical master instruction library at `auxz2jz/master-instruct
 - Last user-verified Android version: **NONE YET**
 - Latest Python reference: **v0.2 — CANDIDATE / assistant-tested on supplied goat footage**
 - Last user-verified Python version: **NONE explicitly recorded**
+- Master Instruction Library adoption: **ACTIVE**
+- Pre-adoption repository checkpoint: `fc84431997ecd05ca4658bd440ac490fbde600fd`
+- Initial adoption documentation checkpoint: `e8b1d5fa83477d3504850416e6da51e06802331d`
+- Windows/PC product implementation: **NOT STARTED**
+
+## Current task
+
+Adopt the current Master Instruction Library around the existing project while preserving working behavior and the established Android structure.
+
+Status: **DOCUMENTATION/SAFEGUARD MAPPING COMPLETE; NO TRACKER SOURCE MODIFIED FOR ADOPTION.**
+
+## Adoption implementation plan
+
+1. Preserve the successful Android candidate and its exact source/artifact identity.
+2. Inspect the existing repository, checkpoints, roadmap, diagnostics, guided testing, and build workflow before changing anything.
+3. Map the current paths to Master-rule ownership instead of moving/renaming them.
+4. Add shared multi-agent/cross-platform coordination documentation.
+5. Record missing diagnostic/testing safeguards as incremental future work rather than rewriting working code.
+6. Keep Windows/PC status at NOT STARTED until a Windows implementation actually begins.
+7. If any future structural migration is proposed, record a migration plan and checkpoint affected platform baselines before changing paths.
+
+See `MASTER_RULE_ADOPTION.md` and `CROSS_PLATFORM_COORDINATION.md`.
 
 ## Source footage evidence
 
@@ -107,6 +137,28 @@ CI setup failures before source compilation:
 4. First real Kotlin compile exposed unresolved contour helper calls in the OpenCV binding. Region extraction was changed from contour area/bounding boxes to `connectedComponentsWithStats`, which is also a direct fit for grouping changed pixels. The next compile succeeded.
 
 For the Python prototype, full-resolution 2560×1920 processing was unnecessarily slow for early tuning, so algorithm validation switched to a reduced working resolution. This is now an intentional design choice: analyze at reduced resolution first, then later map overlays back to full-resolution output.
+
+## Files/results already received
+
+- User-supplied private security footage: `NVR_road_NORMAL_1790370925915_95270004X34XC3GM.mp4` (used for algorithm testing; not stored in GitHub).
+- Python/reference motion-tracking test outputs were generated during development.
+- Android v0.1.0 debug APK was successfully built by GitHub Actions.
+- Exact successful build/artifact identities and hashes are recorded above.
+- No Android physical test result or diagnostic ZIP from the user's phone has been received yet.
+
+## Master-standard safeguard backlog
+
+The current implementation already has meaningful diagnostics and guided testing, but the following are planned incremental safeguards identified during adoption:
+
+- operation/run IDs and correlation IDs;
+- crash preservation with stack traces/cause chains;
+- recent-event buffer and stall/watchdog detection;
+- stronger precondition/result validation and diagnostic redaction;
+- persistent per-step guided-test progress;
+- structured TXT/JSON test reports and tester notes;
+- stronger failed-test-to-diagnostic-event linkage.
+
+These are safeguards to add one logical change at a time. They are not a reason to refactor the tracking engine.
 
 ## Exact next action
 
