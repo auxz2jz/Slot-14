@@ -23,10 +23,12 @@ jobs:
           java-version: "17"
 
       - name: Accept Android SDK licenses
-        run: yes | "$SDKMANAGER" --licenses > /dev/null || true
+        run: |
+          yes | "$SDKMANAGER" --licenses > /dev/null || true
 
       - name: Install Android 36 SDK
-        run: "$SDKMANAGER" "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+        run: |
+          "$SDKMANAGER" "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 
       - name: Set up Gradle 9.6.0
         uses: gradle/actions/setup-gradle@v4
