@@ -4,7 +4,6 @@ import org.opencv.core.Core
 import org.opencv.core.Mat
 import org.opencv.core.MatOfFloat
 import org.opencv.core.MatOfInt
-import org.opencv.core.MatOfPoint
 import org.opencv.core.Point
 import org.opencv.core.Rect
 import org.opencv.core.Size
@@ -88,15 +87,28 @@ internal class MotionDetector(
     }
 
     private fun detect(rgba: Mat, mask: Mat): List<MotionDetection> {
-        val copy = mask.clone()
-        val contours = mutableListOf<MatOfPoint>()
-        val hierarchy = Mat()
-        Imgproc.findContours(copy, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE)
-        val boxes = contours.filter { Imgproc.contourArea(it) >= minArea }
-            .map { Imgproc.boundingRect(it) }.toMutableList()
-        contours.forEach { it.release() }; copy.release(); hierarchy.release()
+        val labels = Mat()
+        val stats = Mat()
+        val centroids = Mat()
+        val count = Imgproc.connectedComponentsWithStats(mask, labels, stats, centroids)
+        val boxes = mutableListOf<Rect>()
+        for (i in 1 until count) {
+            val area = stats.get(i, 4)?.firstOrNull() ?: 0.0
+            if (area < minArea) continue
+            val x = (stats.get(i, 0)?.firstOrNull() ?: 0.0).toInt()
+            val y = (stats.get(i, 1)?.firstOrNull() ?: 0.0).toInt()
+            val w = (stats.get(i, 2)?.firstOrNull() ?: 0.0).toInt()
+            val h = (stats.get(i, 3)?.firstOrNull() ?: 0.0).toInt()
+            if (w > 0 && h > 0) boxes += Rect(x, y, w, h)
+        }
+        labels.release(); stats.release(); centroids.release()
         return merge(boxes).filter { it.area() >= minArea }.map { box ->
-            MotionDetection(box, Point(box.x + box.width / 2.0, box.y + box.height / 2.0), box.area(), histogram(rgba, mask, box))
+            MotionDetection(
+                box,
+                Point(box.x + box.width / 2.0, box.y + box.height / 2.0),
+                box.area(),
+                histogram(rgba, mask, box),
+            )
         }
     }
 
